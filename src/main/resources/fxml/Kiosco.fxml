@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="555.0" prefWidth="886.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aniuska.akioskoinf.controller.KioscoController">
+   <children>
+      <AnchorPane fx:id="pnContenedor" prefHeight="225.0" style="-fx-background-color: #000; -fx-border-width: 0 0 2 0; -fx-border-color: grey;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FlowPane fx:id="pnTurnos" hgap="15.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </FlowPane>
+         </children>
+      </AnchorPane>
+      <Pane fx:id="pnVideo" layoutY="225.0" prefHeight="300.0" prefWidth="407.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="227.0">
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" />
+         </children>
+      </Pane>
+      <Label fx:id="txtStatus" prefHeight="14.0" prefWidth="17.0" style="-fx-background-color: red;" textFill="#00ff11" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+         <effect>
+            <BoxBlur height="3.0" iterations="2" width="3.0" />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>
