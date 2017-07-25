@@ -7,10 +7,13 @@ package com.aniuska.akioskoinf.websocket;
 
 import com.aniuska.akioskoinf.utils.AppConfig;
 import com.aniuska.akioskoinf.utils.GsonUtils;
+
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
@@ -28,6 +31,7 @@ public class WSClient {
     private WebSocketClient sc;
     private String tokenApi;
     private String server;
+    private String version;
     private Boolean conectado = false;
     private boolean started = false;
     private final List<MessageListener> messageListener = new ArrayList();
@@ -36,18 +40,30 @@ public class WSClient {
     public WSClient() {
 
         try {
-            tokenApi = AppConfig.getConfig().getAsString("tokenApi");
-            String serverc = AppConfig.getConfig().getAsString("serverAddress");
 
-            if (tokenApi == null) {
+            String serverc = AppConfig.getConfig().getAsString("serverAddress");
+            
+            tokenApi = AppConfig.getConfig().getAsString("tokenApi");
+            version = AppConfig.getConfig().getAsString("version");
+
+            if (tokenApi == null || tokenApi.isEmpty()) {
                 throw new NullPointerException("The Kiosk's token can't be null");
             }
             if (serverc == null) {
                 throw new NullPointerException("The server's directión can't be null");
             }
 
-            server = serverc.replace("http", "ws") + "/JFlow/notification";
-        } catch (Exception ex) {
+            //server = serverc.replace("http", "ws") + "/JFlow/notification";
+            /*
+            param tokenApi -> 5252525
+            param version -> 2.0.4
+            */
+            server = serverc.replace("http", "ws") + "/jflow-qms/kioscoinf/tokenApi/version";
+            server = server.replace("tokenApi", tokenApi).replace("version", version);
+            
+            System.out.println("tokenApi = " + tokenApi);
+
+        } catch (NullPointerException ex) {
             LOG.error("Error config file", ex.getMessage(), ex);
         }
     }
@@ -59,20 +75,23 @@ public class WSClient {
             public void onOpen(ServerHandshake handshakedata) {
                 conectado = true;
 
+                
+                /* no funciona de parte del cliente*/
                 sc.send(
                         GsonUtils.toJson(
                                 new Message(MessageType.LOGIN)
-                                .put("tokenApi", tokenApi)
-                                .put("version", AppConfig.VERSION)
+                                        .put("tokenApi", tokenApi)
+                                        .put("version", AppConfig.VERSION)
                         )
                 );
+                /* end */
             }
 
             @Override
             public void onMessage(String message) {
 
                 Message ms = GsonUtils.from(message, Message.class);
-                System.out.println(ms);
+
                 switch (ms.getTipoMensaje()) {
                     case MessageType.SUCCESS_LOGIN:
                         notifyStatusListener(Status.CONNECTED, message);
@@ -148,6 +167,9 @@ public class WSClient {
     }
 
     private void notifyListener(Message mes) {
+        
+        System.out.println("mensaje recivido = " + mes);
+        
         messageListener.stream().forEach((messageListener1) -> {
             messageListener1.onMessage(mes);
         });
@@ -162,4 +184,5 @@ public class WSClient {
             s.onStatusChanged(st, msg);
         });
     }
+
 }

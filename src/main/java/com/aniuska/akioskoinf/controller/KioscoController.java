@@ -36,6 +36,7 @@ import org.apache.logging.log4j.Logger;
 public class KioscoController implements Initializable {
 
     private final Logger LOG = LogManager.getLogger(KioscoController.class);
+    
     @FXML
     private Label txtStatus;
     @FXML
@@ -163,6 +164,7 @@ public class KioscoController implements Initializable {
                 Reproductor.playWavSound(new File("./"), "campana");
             } catch (Exception ex) {
                 java.util.logging.Logger.getLogger(KioscoController.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }).start();
 

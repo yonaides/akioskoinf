@@ -137,8 +137,16 @@ public class App extends Application implements MessageListener, StatusListener,
                     break;
 
                 case MessageType.SUCCESS_LOGIN:
+                    
+                    System.out.println(" mensaje de configuracion ms = " + ms);
+                    System.out.println("ms.getMensaje() .get(nombreOficina).getAsString() = " 
+                            + ms.getMensaje().get("nombreOficina").getAsString());
+                    
                     String nombreOficina = ms.getMensaje()
-                            .get("nombreSucursal").getAsString();
+                            .get("nombreOficina").getAsString();
+                    
+                    System.out.println("nombreOficina = " + nombreOficina);
+                    
                     cKiosco.setNombreOficina(nombreOficina);
                     break;
 
