@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 public class KioscoController implements Initializable {
 
     private final Logger LOG = LogManager.getLogger(KioscoController.class);
-    
+
     @FXML
     private Label txtStatus;
     @FXML
@@ -75,14 +75,12 @@ public class KioscoController implements Initializable {
 
             pnEdenorteController = loader1.getController();
 
-//            if (pnTurnos.getChildren().isEmpty()) {
             pnContenedor.getChildren().clear();
             pnContenedor.getChildren().add(pnEdenorte);
             AnchorPane.setBottomAnchor(pnEdenorte, 0D);
             AnchorPane.setLeftAnchor(pnEdenorte, 0D);
             AnchorPane.setRightAnchor(pnEdenorte, 0D);
             AnchorPane.setTopAnchor(pnEdenorte, 0D);
-//            }
 
         } catch (IOException ex) {
             LOG.error("Error initializing 'TurnoLlamarPn'", ex.getMessage(), ex);
@@ -164,7 +162,7 @@ public class KioscoController implements Initializable {
                 Reproductor.playWavSound(new File("./"), "campana");
             } catch (Exception ex) {
                 java.util.logging.Logger.getLogger(KioscoController.class.getName()).log(Level.SEVERE, null, ex);
-                
+
             }
         }).start();
 

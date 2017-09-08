@@ -61,8 +61,6 @@ public class WSClient {
             server = serverc.replace("http", "ws") + "/jflow-qms/kioscoinf/tokenApi/version";
             server = server.replace("tokenApi", tokenApi).replace("version", version);
             
-            System.out.println("tokenApi = " + tokenApi);
-
         } catch (NullPointerException ex) {
             LOG.error("Error config file", ex.getMessage(), ex);
         }
@@ -75,7 +73,6 @@ public class WSClient {
             public void onOpen(ServerHandshake handshakedata) {
                 conectado = true;
 
-                
                 /* no funciona de parte del cliente*/
                 sc.send(
                         GsonUtils.toJson(
